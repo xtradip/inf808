@@ -17,7 +17,14 @@ def encrypt(str, k):
     
     return caesar
 
+def decrypt(str,k):
+    return encrypt(str, (26-k)%26)
+
 print(translation_char('A',26))
-print(encrypt("abcde", 1))
+k = 100
+a = encrypt("abcde", k)
+
+print(decrypt(a, k))
+
 
 
