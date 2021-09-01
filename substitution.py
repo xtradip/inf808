@@ -1,4 +1,5 @@
 #coding: utf-8
+from ceasar import encrypt
 import secrets
 from binascii import hexlify
 import textwrap
@@ -39,8 +40,12 @@ def guess_clear_text( encrypted_text:bytes, decryption_key:dict )  -> str:
     clear_text = ""
     for index in range(len(encrypted_text)):
         if index%2 == 0:
-            #lol
-            print(1)
+            c = encrypted_text[index:index+2]
+            if(c in decryption_key):
+                clear_text+=decryption_key[c]
+            else:
+                # print(str(c))
+                clear_text+=str(c)
     return clear_text
 
 def build_decryption_key( freq_clear_text:list, freq_cipher_text:list, key_size:int):
@@ -69,8 +74,8 @@ if __name__ == '__main__':
     print( "*** question 11")
     decryption_key = build_decryption_key(  freq_hugo, freq_cipher_text_1, 15 )
     print("decryption_key: %s"%decryption_key)
-    # clear_text_1 = guess_clear_text( cipher_text_1_bin, decryption_key ) 
-    # print("clear_text_1: %s"%clear_text_1 )
+    clear_text_1 = guess_clear_text( cipher_text_1_bin, decryption_key ) 
+    print("clear_text_1: %s"%clear_text_1 )
 
     # print( "*** question 12" )
     # freq_cipher_text_2 = freq_cipher( cipher_text_2 )
